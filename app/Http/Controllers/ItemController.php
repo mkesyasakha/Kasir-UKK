@@ -82,23 +82,21 @@ class ItemController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Item $item)
-{
-    try {
-        // Menghapus foto terkait jika ada
-        if ($item->photo) {
-            Storage::disk('public')->delete($item->photo);
+    {
+        try {
+            // Menghapus foto terkait jika ada
+            if ($item->photo) {
+                Storage::disk('public')->delete($item->photo);
+            }
+
+            // Menghapus item dari database
+            $item->delete();
+
+            // Mengembalikan response sukses
+            return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
+        } catch (\Exception $e) {
+            // Menangkap pengecualian dan mengembalikan response error
+            return redirect()->route('items.index')->with('error', 'Failed to delete item. ' . $e->getMessage());
         }
-
-        // Menghapus item dari database
-        $item->delete();
-
-        // Mengembalikan response sukses
-        return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
-
-    } catch (\Exception $e) {
-        // Menangkap pengecualian dan mengembalikan response error
-        return redirect()->route('items.index')->with('error', 'Failed to delete item. ' . $e->getMessage());
     }
-}
-
 }

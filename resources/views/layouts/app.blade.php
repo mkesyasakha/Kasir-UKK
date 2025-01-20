@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +33,8 @@
             left: 0;
             bottom: 0;
             width: 250px;
-            background-color: #FF8C00; /* Changed to orange */
+            background-color: #FF8C00;
+            /* Changed to orange */
             color: #fff;
             padding-top: 20px;
             transition: all 0.3s ease;
@@ -56,7 +58,8 @@
         }
 
         #sidebar a:hover {
-            background-color: #e67e22; /* Darker orange */
+            background-color: #e67e22;
+            /* Darker orange */
             border-radius: 5px;
         }
 
@@ -73,7 +76,8 @@
         }
 
         #sidebar .dropdown-menu {
-            background-color: #FF8C00; /* Orange */
+            background-color: #FF8C00;
+            /* Orange */
             border: none;
         }
 
@@ -108,6 +112,7 @@
         }
     </style>
 </head>
+
 <body class="d-flex">
     <div id="app" class="d-flex w-100">
 
@@ -118,48 +123,56 @@
             </a>
 
             @auth
-                <!-- Sidebar Links for Authenticated Users -->
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('suppliers.index') }}">
-                            <i class="bi bi-person-lines-fill"></i> Supplier
-                        </a>
-                    </li>
-                    <!-- Add other authenticated links here -->
-                </ul>
+            <!-- Sidebar Links for Authenticated Users -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('suppliers.index') }}">
+                        <i class="bi bi-person-lines-fill"></i> Supplier
+                    </a>
+                </li>
+                <!-- Add other authenticated links here -->
+            </ul>
 
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customers.index') }}">
-                            <i class="bi bi-person-lines-fill"></i> Kustomer
-                        </a>
-                    </li>
-                    <!-- Add other authenticated links here -->
-                </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('customers.index') }}">
+                        <i class="bi bi-person-lines-fill"></i> Customer
+                    </a>
+                </li>
+                <!-- Add other authenticated links here -->
+            </ul>
 
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('items.index') }}">
-                            <i class="bi bi-box-seam"></i> Barang
-                        </a>
-                    </li>
-                    <!-- Add other authenticated links here -->
-                </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('items.index') }}">
+                        <i class="bi bi-box-seam"></i> Barang
+                    </a>
+                </li>
+                <!-- Add other authenticated links here -->
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('transactions.index') }}">
+                        <i class="bi bi-box-seam"></i> Transaksi
+                    </a>
+                </li>
+                <!-- Add other authenticated links here -->
+            </ul>
             @endauth
 
             <!-- Authentication Links -->
             @guest
-                @if (Route::has('login'))
-                    <a class="nav-link" href="{{ route('login') }}">
-                        <i class="bi bi-box-arrow-in-right"></i> {{ __('Login') }}
-                    </a>
-                @endif
+            @if (Route::has('login'))
+            <a class="nav-link" href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right"></i> {{ __('Login') }}
+            </a>
+            @endif
 
-                @if (Route::has('register'))
-                    <a class="nav-link" href="{{ route('register') }}">
-                        <i class="bi bi-pencil-square"></i> {{ __('Register') }}
-                    </a>
-                @endif
+            @if (Route::has('register'))
+            <a class="nav-link" href="{{ route('register') }}">
+                <i class="bi bi-pencil-square"></i> {{ __('Register') }}
+            </a>
+            @endif
             @endguest
         </div>
 
@@ -195,30 +208,30 @@
             <main class="py-4">
                 <div class="container mt-4">
                     @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
 
                     <!-- Alert Error -->
                     @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
 
                     <!-- Alert Any Errors (validation) -->
                     @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
                     @yield('content')
                 </div>
@@ -233,4 +246,5 @@
         }
     </script>
 </body>
+
 </html>

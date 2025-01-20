@@ -12,5 +12,7 @@ class Customer extends Model
     
     protected $guarded = ['id'];
 
-    
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
 }
