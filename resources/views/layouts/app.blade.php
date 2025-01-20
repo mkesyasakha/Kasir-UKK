@@ -32,7 +32,7 @@
             left: 0;
             bottom: 0;
             width: 250px;
-            background-color:rgb(50, 139, 228);
+            background-color: #FF8C00; /* Changed to orange */
             color: #fff;
             padding-top: 20px;
             transition: all 0.3s ease;
@@ -46,10 +46,17 @@
             padding: 10px 20px;
             display: block;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        #sidebar a i {
+            margin-right: 10px;
+            font-size: 20px;
         }
 
         #sidebar a:hover {
-            background-color: rgb(50, 139, 228);
+            background-color: #e67e22; /* Darker orange */
             border-radius: 5px;
         }
 
@@ -66,7 +73,7 @@
         }
 
         #sidebar .dropdown-menu {
-            background-color:rgb(50, 139, 228);
+            background-color: #FF8C00; /* Orange */
             border: none;
         }
 
@@ -124,7 +131,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('items.index') }}">
-                            <i class="bi bi-person-lines-fill"></i> Barang
+                            <i class="bi bi-box-seam"></i> Barang
                         </a>
                     </li>
                     <!-- Add other authenticated links here -->
@@ -134,22 +141,16 @@
             <!-- Authentication Links -->
             @guest
                 @if (Route::has('login'))
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right"></i> {{ __('Login') }}
+                    </a>
                 @endif
 
                 @if (Route::has('register'))
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                @endif
-            @else
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->name }}
+                    <a class="nav-link" href="{{ route('register') }}">
+                        <i class="bi bi-pencil-square"></i> {{ __('Register') }}
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                    </ul>
-                </div>
+                @endif
             @endguest
         </div>
 
@@ -159,6 +160,27 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}" onclick="toggleSidebar()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Logout Button in Navbar -->
+                @auth
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="bi bi-box-arrow-right"></i> {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                @endauth
             </nav>
 
             <main class="py-4">
