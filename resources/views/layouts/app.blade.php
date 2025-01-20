@@ -121,14 +121,21 @@
                 <!-- Sidebar Links for Authenticated Users -->
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customers.index') }}">
+                        <a class="nav-link" href="{{ route('suppliers.index') }}">
                             <i class="bi bi-person-lines-fill"></i> Supplier
                         </a>
                     </li>
                     <!-- Add other authenticated links here -->
                 </ul>
 
-                <h1>JANCOK</h1>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('customers.index') }}">
+                            <i class="bi bi-person-lines-fill"></i> Kustomer
+                        </a>
+                    </li>
+                    <!-- Add other authenticated links here -->
+                </ul>
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
