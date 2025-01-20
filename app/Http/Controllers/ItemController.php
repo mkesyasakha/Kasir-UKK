@@ -33,6 +33,7 @@ class ItemController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'stock' => $request->stock,
             'supplier_id' => $request->supplier_id,
         ]);
 
