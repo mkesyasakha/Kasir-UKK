@@ -8,12 +8,10 @@ use App\Http\Requests\UpdateSupplierRequest;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $suppliers = Supplier::orderBy('created_at', 'desc')->get();
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -29,7 +27,8 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        //
+        Supplier::create($request->all());
+        return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully.');
     }
 
     /**
@@ -53,7 +52,8 @@ class SupplierController extends Controller
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        //
+        $supplier->update($request->all());
+        return redirect()->route('suppliers.index')->with('success', 'Supplier updated successfully.');
     }
 
     /**
@@ -61,6 +61,12 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        try {
+            $supplier->delete();
+            return redirect()->route('suppliers.index')->with('success', 'Supplier deleted successfully.');
+        }catch (\Exception $e) {
+            return redirect()->route('suppliers.index')->with('error', 'Failed to delete supplier. Please try again.');
+        }
     }
+
 }
