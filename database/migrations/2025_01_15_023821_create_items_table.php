@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('price');
+            $table->integer('stock');
             $table->foreignId('supplier_id')->constrained();
             $table->timestamps();
         });

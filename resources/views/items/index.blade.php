@@ -34,6 +34,10 @@
                             <input type="number" class="form-control" id="price" name="price">
                         </div>
                         <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock">
+                        </div>
+                        <div class="mb-3">
                             <label for="supplier_id" class="form-label">Pelanggan</label>
                             <select class="form-control" id="supplier_id" name="supplier_id">
                                 @foreach ($suppliers as $supplier)
@@ -61,6 +65,7 @@
                     <h5 class="card-title">{{ $item->name }}</h5>
                     <p class="card-text">{{ Str::limit($item->description, 100) }}</p>
                     <p class="card-text"><strong>Harga:</strong> Rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{$item->stock}}</p>
                     <p class="card-text"><strong>Supplier:</strong> {{ $item->suppliers->name }}</p>
                     <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#showModal{{ $item->id }}">Show</a>
                     <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Edit</a>
@@ -124,6 +129,10 @@
                             <div class="mb-3">
                                 <label for="price" class="form-label">Harga</label>
                                 <input type="number" class="form-control" id="price" name="price" value="{{ $item->price }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="stock" name="stock" value="{{ $item->stock }}">
                             </div>
                             <div class="mb-3">
                                 <label for="supplier_id" class="form-label">Supplier</label>
