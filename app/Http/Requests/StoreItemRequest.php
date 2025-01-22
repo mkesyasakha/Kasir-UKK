@@ -22,7 +22,33 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Maks 2MB
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'price' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'supplier_id' => 'required|exists:suppliers,id',
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'photo.required' => 'Foto item wajib diunggah.',
+            'photo.image' => 'File yang diunggah harus berupa gambar.',
+            'photo.mimes' => 'Format gambar harus berupa jpg, jpeg, atau png.',
+            'photo.max' => 'Ukuran gambar maksimal 2MB.',
+            'name.required' => 'Nama item wajib diisi.',
+            'name.max' => 'Nama item tidak boleh lebih dari 255 karakter.',
+            'description.required' => 'Deskripsi item wajib diisi.',
+            'description.max' => 'Deskripsi item tidak boleh lebih dari 1000 karakter.',
+            'price.required' => 'Harga item wajib diisi.',
+            'price.integer' => 'Harga item harus berupa angka.',
+            'price.min' => 'Harga item tidak boleh kurang dari 0.',
+            'stock.required' => 'Stok item wajib diisi.',
+            'stock.integer' => 'Stok item harus berupa angka.',
+            'stock.min' => 'Stok item tidak boleh kurang dari 0.',
+            'supplier_id.required' => 'Supplier wajib dipilih.',
+            'supplier_id.exists' => 'Supplier yang dipilih tidak valid.',
         ];
     }
 }

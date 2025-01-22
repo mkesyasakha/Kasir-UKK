@@ -38,11 +38,13 @@
                             <input type="number" class="form-control" id="stock" name="stock">
                         </div>
                         <div class="mb-3">
-                            <label for="supplier_id" class="form-label">Pelanggan</label>
+                            <label for="supplier_id" class="form-label">Supplier</label>
                             <select class="form-control" id="supplier_id" name="supplier_id">
-                                @foreach ($suppliers as $supplier)
+                                @forelse ($suppliers as $supplier)
                                     <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                                @endforeach
+                                    @empty
+                                    <option value="" disabled>Pelanggan tidak tersedia</option>
+                                @endforelse
                             </select>
                         </div>
                     </div>
@@ -75,13 +77,142 @@
         </div>
         
         <!-- Modal Show -->
-        <!-- ... kode modal untuk Show ... -->
+
+<div class="modal fade" id="showModal{{ $item->id }}" tabindex="-1" aria-labelledby="showModalLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showModalLabel{{ $item->id }}">Detail Barang</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Foto -->
+                    @if ($item->photo)
+                        <div class="col-md-4 text-center">
+                            <img src="{{ asset('storage/' . $item->photo) }}" alt="{{ $item->name }}" class="img-fluid rounded mb-3">
+                        </div>
+                    @endif
+
+                    <!-- Deskripsi -->
+                    <div class="col-md-8">
+                        <div>
+                            <p><strong>Nama:</strong> {{ $item->name }}</p>
+                            <p><strong>Harga:</strong> Rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                            <p><strong>Deskripsi:</strong> {{ $item->description }}</p>
+                            <p><strong>Stok:</strong> {{ $item->stock }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
         
         <!-- Modal Edit -->
-        <!-- ... kode modal untuk Edit ... -->
+        
+<!-- Modal Edit -->
+<div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('items.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <!-- Nama -->
+                    <div class="mb-3">
+                        <label for="name{{ $item->id }}" class="form-label">Nama</label>
+                        <input type="text" name="name" id="name{{ $item->id }}" class="form-control" value="{{ $item->name }}" required>
+                    </div>
+
+                    <!-- Harga -->
+                    <div class="mb-3">
+                        <label for="price{{ $item->id }}" class="form-label">Harga</label>
+                        <input type="number" name="price" id="price{{ $item->id }}" class="form-control" value="{{ $item->price }}" required>
+                    </div>
+
+                    <!-- Deskripsi -->
+                    <div class="mb-3">
+                        <label for="description{{ $item->id }}" class="form-label">Deskripsi</label>
+                        <textarea name="description" id="description{{ $item->id }}" class="form-control" rows="3" required>{{ $item->description }}</textarea>
+                    </div>
+
+                    <!-- Stok -->
+                    <div class="mb-3">
+                        <label for="stock{{ $item->id }}" class="form-label">Stok</label>
+                        <input type="number" name="stock" id="stock{{ $item->id }}" class="form-control" value="{{ $item->stock }}" required>
+                    </div>
+
+                    <!-- Supplier -->
+                    <div class="mb-3">
+                        <label for="supplier_id{{ $item->id }}" class="form-label">Supplier</label>
+                        <select name="supplier_id" id="supplier_id{{ $item->id }}" class="form-select" required>
+                            <option value="" disabled>Pilih Supplier</option>
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}" {{ $item->supplier_id == $supplier->id ? 'selected' : '' }}>
+                                    {{ $supplier->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Foto -->
+                    <div class="mb-3">
+                        <label for="photo{{ $item->id }}" class="form-label">Foto</label>
+                        <div class="mb-2">
+                            @if ($item->photo)
+                                <img src="{{ asset('storage/' . $item->photo) }}" alt="Preview Foto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            @else
+                                <p class="text-muted">Tidak ada foto</p>
+                            @endif
+                        </div>
+                        <input type="file" name="photo" id="photo{{ $item->id }}" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
         
         <!-- Modal Hapus -->
-        <!-- ... kode modal untuk Delete ... -->
+<div class="modal fade col-6" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus Barang</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus barang <strong>{{ $item->name }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
         @empty
         <div class="col-12 text-center">
             <div class="d-flex justify-content-center">

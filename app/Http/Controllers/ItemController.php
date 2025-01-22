@@ -53,6 +53,7 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
+        
         // Memeriksa apakah ada foto baru yang diunggah
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
