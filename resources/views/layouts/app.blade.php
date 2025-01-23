@@ -118,9 +118,13 @@
 
         <!-- Sidebar -->
         <div id="sidebar">
-            <a class="navbar-brand mb-3" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
+        <a class="navbar-brand mb-3" href="{{ url('/') }}">
+    <!-- Logo Image -->
+    <img src="{{ asset('storage/items/logo1.png') }}" alt="Logo" style="width: 50px; height: auto; margin-right: 10px;">
+    <!-- App Name -->
+    {{ config('app.name', 'Laravel') }}
+</a>
+
 
             @auth
             <!-- Sidebar Links for Authenticated Users -->

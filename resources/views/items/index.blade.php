@@ -73,15 +73,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Modal Show -->
-        <!-- ... kode modal untuk Show ... -->
-        
-        <!-- Modal Edit -->
-        <!-- ... kode modal untuk Edit ... -->
-        
-        <!-- Modal Hapus -->
-        <!-- ... kode modal untuk Delete ... -->
         @empty
         <div class="col-12 text-center">
             <div class="d-flex justify-content-center">
