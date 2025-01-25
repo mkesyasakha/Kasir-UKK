@@ -18,10 +18,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="customer_id" class="form-label">Pelanggan</label>
-                            <select class="form-control" id="customer_id" name="customer_id">
-                                @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            <label for="user_id" class="form-label">Pelanggan</label>
+                            <select class="form-control" id="user_id" name="user_id">
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -55,7 +55,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-text"><strong>Harga:</strong> Rp {{ number_format($transaction->total, 0, ',', '.') }}</p>
-                    <p class="card-text"><strong>Customer:</strong> {{ $transaction->customers->name }}</p>
+                    <p class="card-text"><strong>Customer:</strong> {{ $transaction->users->name }}</p>
                     <p class="card-text">
                         <strong>Status:</strong>
                         @if($transaction->status == 'pending')
@@ -84,7 +84,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <p><strong>Pelanggan:</strong> {{ $transaction->customers->name }}</p>
+                                <p><strong>Pelanggan:</strong> {{ $transaction->users->name }}</p>
                                 <p><strong>Total:</strong> Rp {{ number_format($transaction->total, 0, ',', '.') }}</p>
                             </div>
                         </div>
@@ -109,11 +109,11 @@
                         </div>
                         <div class="modal-body">
                             <!-- Input Customer -->
-                            <label for="customer_id" class="form-label">Customer</label>
-                            <select class="form-control" id="customer_id" name="customer_id">
-                                @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}" {{ $transaction->customer_id == $customer->id ? 'selected' : '' }}>
-                                    {{ $customer->name }}
+                            <label for="user_id" class="form-label">Customer</label>
+                            <select class="form-control" id="user_id" name="user_id">
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ $transaction->user_id == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
                                 </option>
                                 @endforeach
                             </select>

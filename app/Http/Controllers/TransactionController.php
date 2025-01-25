@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
-use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class TransactionController extends Controller
@@ -16,8 +16,8 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::orderBy('id', 'desc')->get();
-        $customers = Customer::all();
-        return view('transactions.index', compact('transactions', 'customers'));
+        $users = User::all();
+        return view('transactions.index', compact('transactions', 'users'));
     }
 
     /**

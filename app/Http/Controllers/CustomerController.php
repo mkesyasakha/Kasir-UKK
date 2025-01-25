@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\User;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 
@@ -13,8 +13,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('created_at', 'desc')->get();
-        return view('customers.index', compact('customers'));
+        $users = User::orderBy('created_at', 'desc')
+        ->role('customer')
+        ->where('id', '!=', auth()->id())
+        ->get();
+        return view('customers.index', compact('users'));
     }
 
     /**
@@ -30,14 +33,20 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        Customer::create($request->all());
-        return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
+        // dd($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password),
+        ])->assignRole('customer');
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(User $user)
     {
         //
     }
@@ -45,7 +54,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit(User $user)
     {
         //
     }
@@ -53,22 +62,22 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, User $user)
     {
-        $customer->update($request->all());
-        return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
+        $user->update($request->all());
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(User $user)
     {
         try {
-            $customer->delete();
-            return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'User deleted successfully.');
         }catch (\Exception $e) {
-            return redirect()->route('customers.index')->with('error', 'Failed to delete customer. Please try again.');
+            return redirect()->route('users.index')->with('error', 'Failed to delete user. Please try again.');
         }
     }
 }

@@ -135,13 +135,13 @@
 
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customers.index') }}">
+                    <a class="nav-link" href="{{ route('users.index') }}">
                         <i class="bi bi-person-lines-fill"></i> Customer
                     </a>
                 </li>
                 <!-- Add other authenticated links here -->
             </ul>
-
+            @hasrole('admin')
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('items.index') }}">
@@ -158,6 +158,7 @@
                 </li>
                 <!-- Add other authenticated links here -->
             </ul>
+            @endhasrole
             @endauth
 
             <!-- Authentication Links -->

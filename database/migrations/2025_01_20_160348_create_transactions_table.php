@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->integer('total');
             $table->enum('status', ['pending', 'success', 'failed']);
             $table->timestamps();
