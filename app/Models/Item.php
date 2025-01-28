@@ -14,4 +14,8 @@ class Item extends Model
     public function suppliers(){
         return $this->belongsTo(Supplier::class, 'supplier_id');
     }
+
+    public function transactions(){
+        return $this->belongsToMany(Transaction::class,'transaction_items', 'transaction_id', 'item_id')->withPivot('quantity');
+    }
 }   
