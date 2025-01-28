@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h1>Daftar Supplier</h1>
+    <h1>Daftar Customer</h1>
 
     @hasrole('admin')
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">Tambah Pelanggan</button>
@@ -182,7 +182,7 @@
                     </form>
                 </div>
             </div>
-            pdkasdajkdandajkdadnad
+           
 
             <!-- Modal Delete -->
             <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id }}" aria-hidden="true">
