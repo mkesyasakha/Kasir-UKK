@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -33,11 +34,15 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
+       
+        $photo = $request->file('photo');
+        $path = $photo->store('users', 'public');
         // dd($request->all());
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'photo' => $request->photo,
             'password' => bcrypt($request->password),
         ])->assignRole('customer');
         return redirect()->route('users.index')->with('success', 'User created successfully.');
