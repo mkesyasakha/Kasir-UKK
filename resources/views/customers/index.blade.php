@@ -9,7 +9,7 @@
     @endhasrole
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">>
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,6 +28,10 @@
                     <div class="mb-3">
                         <label for="phone" class="form-label">No. Telepon</label>
                         <input type="text" class="form-control" id="phone" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Foto</label>
+                        <input type="file" class="form-control" id="photo" name="photo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -134,6 +138,7 @@
         @foreach($users as $index => $user)
             <div class="col-md-4 mb-4">
                 <div class="card">
+                    <img src="{{ $user->photo ? asset('storage/'.$user->photo) : asset('images/user.png') }}" class="card-img-top" alt="Foto Barang" style="height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $user->name }}</h5>
                         <p class="card-text"><strong>Email:</strong> {{ $user->email }}</p>

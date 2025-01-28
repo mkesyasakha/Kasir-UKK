@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::middleware('auth', 'role:admin')->group(function () {
     
     Route::resource('items', ItemController::class);
-    Route::resource('suppliers', SupplierController::class);
     Route::resource('transactions', TransactionController::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('users', CustomerController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('users', CustomerController::class);
+    Route::resource('suppliers', SupplierController::class);
+});
 

@@ -35,16 +35,25 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
        
-        $photo = $request->file('photo');
+        if($request->photo){
+            $photo = $request->file('photo');
         $path = $photo->store('users', 'public');
-        // dd($request->all());
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'photo' => $request->photo,
+            'photo' => $path,
             'password' => bcrypt($request->password),
         ])->assignRole('customer');
+        }else {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => bcrypt($request->password),
+            ])->assignRole('customer');
+        }
+        // dd($request->all());
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
